@@ -1,0 +1,41 @@
+[
+    {
+        "id": 1,
+        "name": "Healing Potion",
+        "code": "healing_potion_1",
+        "type": "potion",
+        "description": "Restores 10 health points.",
+        "price": 5,
+        "sellPrice": 2,
+        "effectValue": 10,
+        "rarity": "Common",
+        "imagePath": "/images/shop-red-potion.webp",
+        "itemClass": "ItemPotion"
+    },
+    {
+        "id": 2,
+        "name": "Strength Potion",
+        "code": "strength_potion_1",
+        "type": "potion",
+        "description": "Improves Strength by +1.",
+        "price": 300,
+        "sellPrice": 120,
+        "effectValue": 1,
+        "rarity": "Rare",
+        "imagePath": "/images/shop-purple-potion.webp",
+        "itemClass": "ItemPotion"
+    },
+    {
+        "id": 3,
+        "name": "Iron Shield",
+        "code": "iron_shield",
+        "type": "shield",
+        "description": "Provides a +2 Defense bonus.",
+        "price": 50,
+        "sellPrice": 20,
+        "effectValue": 2,
+        "rarity": "Common",
+        "imagePath": "/images/shop-iron-shield.png",
+        "itemClass": "ItemArmor"
+    }
+]

@@ -1,0 +1,17 @@
+{
+    "GOBLIN": {
+        "id": 1,
+        "imagePath": "/images/enemy-goblin.png",
+        "username": "GOBLIN"
+    },
+    "WOLF": {
+        "id": 2,
+        "imagePath": "/images/enemy-wolf.png",
+        "username": "WOLF"
+    },
+    "ROGUE SOLDIER": {
+        "id": 3,
+        "imagePath": "/images/enemy-rogue-soldier.png",
+        "username": "ROGUE SOLDIER"
+    }
+}

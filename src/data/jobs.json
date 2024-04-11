@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "title": "Laborer",
+        "code": "laborer_1",
+        "description": "A hard day's work for honest pay.",
+        "coinEarned": 3,
+        "jobCategory": "unskilled",
+        "actionPointsConsumed": 3,
+        "numOfCompletionsToRankUp": 10
+    },
+    {
+        "id": 2,
+        "title": "Street Sweeper",
+        "code": "street_sweeper_1",
+        "description": "A task that most refuse to do, but you do it with pride.",
+        "coinEarned": 1,
+        "jobCategory": "unskilled",
+        "actionPointsConsumed": 1,
+        "numOfCompletionsToRankUp": 10
+    },
+    {
+        "id": 3,
+        "title": "Vendor",
+        "code": "vendor_1",
+        "description": "Selling goods to the masses.",
+        "coinEarned": 2,
+        "jobCategory": "unskilled",
+        "actionPointsConsumed": 3,
+        "numOfCompletionsToRankUp": 10
+    }
+]
