@@ -152,12 +152,12 @@ const generateRandomEnemy = () => {
 
 const setTurnOrder = () => {
   console.log('Setting turn order...')
-  console.log('Player speed:', playerInfo.playerSpeed)
+  console.log('Player speed:', playerInfo.playerSpeedTotal)
   console.log('Enemy speed:', enemy.speed)
 
   console.log('enemy:', enemy.username)
 
-  if (playerInfo.playerSpeed >= enemy.speed) {
+  if (playerInfo.playerSpeedTotal >= enemy.speed) {
     console.log('Player goes first!')
     for (let i = 0; i < 101; i++) {
       if (i % 2 === 0) {

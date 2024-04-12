@@ -4,7 +4,7 @@
         "title": "Laborer",
         "code": "laborer_1",
         "description": "A hard day's work for honest pay.",
-        "coinEarned": 3,
+        "coinsEarned": 3,
         "jobCategory": "unskilled",
         "actionPointsConsumed": 3,
         "numOfCompletionsToRankUp": 10
@@ -14,7 +14,7 @@
         "title": "Street Sweeper",
         "code": "street_sweeper_1",
         "description": "A task that most refuse to do, but you do it with pride.",
-        "coinEarned": 1,
+        "coinsEarned": 1,
         "jobCategory": "unskilled",
         "actionPointsConsumed": 1,
         "numOfCompletionsToRankUp": 10
@@ -24,7 +24,7 @@
         "title": "Vendor",
         "code": "vendor_1",
         "description": "Selling goods to the masses.",
-        "coinEarned": 2,
+        "coinsEarned": 2,
         "jobCategory": "unskilled",
         "actionPointsConsumed": 3,
         "numOfCompletionsToRankUp": 10

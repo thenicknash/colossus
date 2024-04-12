@@ -31,5 +31,8 @@ export default class ActionPoints {
 
   setActionPoints(actionPoints) {
     this.gameCycleInfo.gameActionPointsLeft = actionPoints
+    if (this.gameCycleInfo.gameActionPointsLeft < 0) {
+      this.gameCycleInfo.gameActionPointsLeft = 0
+    }
   }
 }

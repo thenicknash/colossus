@@ -58,6 +58,10 @@ const playerInfo = playerInfoStore()
               <p>Current Time: {{ gameCycleInfo.gameCurrentTime }}</p>
               <p>Current Location: {{ playerInfo.playerCurrentLocation }}</p>
             </div>
+            <div>
+              <p>Action Points Initial: {{ gameCycleInfo.gameActionPointsInitial }}</p>
+              <p>Action Points Left: {{ gameCycleInfo.gameActionPointsLeft }}</p>
+            </div>
           </div>
         </div>
 
@@ -134,6 +138,20 @@ const playerInfo = playerInfoStore()
             class="p-2 my-2 text-xl bg-red-500 text-white border-4 border-red-700 hover:bg-red-700 hover:border-red-900"
           >
             Toggle current time
+          </button>
+
+          <button
+            @click="gameCycleInfo.gameActionPointsLeft += 1"
+            class="p-2 my-2 text-xl bg-red-500 text-white border-4 border-red-700 hover:bg-red-700 hover:border-red-900"
+          >
+            Add 1 action point
+          </button>
+
+          <button
+            @click="gameCycleInfo.gameActionPointsLeft -= 1"
+            class="p-2 my-2 text-xl bg-red-500 text-white border-4 border-red-700 hover:bg-red-700 hover:border-red-900"
+          >
+            Subtract 1 action point
           </button>
         </div>
       </div>

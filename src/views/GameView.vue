@@ -89,6 +89,13 @@ const endCombat = () => {
 }
 
 const navigateToJobs = () => {
+  const actionPoints = new ActionPoints()
+
+  if (actionPoints.areEmpty()) {
+    displayPopUp('You are too tired to work! Rest and recover first.')
+    return
+  }
+
   router.push('/game/jobs')
 }
 

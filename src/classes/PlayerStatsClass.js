@@ -24,4 +24,52 @@ export default class PlayerStats {
 
     this.playerInfo.playerUnusedSkillPoints += 1
   }
+
+  chanceToIncreaseSkillFromJob (jobId) {
+    const dice20Side = Math.floor(Math.random() * 20) + 1
+
+    let skillIncreased = ''
+
+    if (jobId === 1) {
+      if (dice20Side >= 19) {
+        this.playerInfo.playerStrengthBase += 1
+        skillIncreased = 'Strength'
+      }
+    } else if (jobId === 2) {
+      if (dice20Side >= 19) {
+        this.playerInfo.playerSpeedBase += 1
+        skillIncreased = 'Speed'
+      }
+    } else if (jobId === 3) {
+      if (dice20Side >= 17) {
+        // Random chance between intelligence and charisma
+        const oneOrTwo = Math.floor(Math.random() * 2) + 1
+
+        if (oneOrTwo === 1) {
+          this.playerInfo.playerIntelligenceBase += 1
+          skillIncreased = 'Intelligence'
+        } else {
+          this.playerInfo.playerCharismaBase
+          skillIncreased = 'Charisma'
+        }
+      }
+    }
+
+    return skillIncreased
+  }
+
+  addCoins (amount) {
+    this.playerInfo.playerCoin += amount
+  }
+
+  removeCoins (amount) {
+    this.playerInfo.playerCoin -= amount
+    if (this.playerInfo.playerCoin < 0) {
+      this.playerInfo.playerCoin = 0
+    }
+  }
+
+  getCoins () {
+    return this.playerInfo.playerCoin
+  }
 }

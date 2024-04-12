@@ -18,13 +18,58 @@ export default class PlayerJobs {
     this.vendorRank = playerJobsInfo.playerVendorRank
   }
 
-  getCurrentJobRank (jobId) {
+  getJobRank (jobId) {
     if (jobId === 1) {
       return this.laborerRank
     } else if (jobId === 2) {
       return this.streetSweeperRank
     } else if (jobId === 3) {
       return this.vendorRank
+    }
+  }
+
+  getJobExperience (jobId) {
+    if (jobId === 1) {
+      return this.laborerExperience
+    } else if (jobId === 2) {
+      return this.streetSweeperExperience
+    } else if (jobId === 3) {
+      return this.vendorExperience
+    }
+  }
+
+  getJobMaxExperience (jobId) {
+    if (jobId === 1) {
+      return this.laborerMaxExperience
+    } else if (jobId === 2) {
+      return this.streetSweeperMaxExperience
+    } else if (jobId === 3) {
+      return this.vendorMaxExperience
+    }
+  }
+
+  increaseJobExperience (jobId, experience) {
+    if (jobId === 1) {
+      this.laborerExperience += experience
+      if (this.laborerExperience >= this.laborerMaxExperience) {
+        this.laborerExperience = 0
+        this.laborerMaxExperience += 10
+        this.laborerRank++
+      }
+    } else if (jobId === 2) {
+      this.streetSweeperExperience += experience
+      if (this.streetSweeperExperience >= this.streetSweeperMaxExperience) {
+        this.streetSweeperExperience = 0
+        this.streetSweeperMaxExperience += 10
+        this.streetSweeperRank++
+      }
+    } else if (jobId === 3) {
+      this.vendorExperience += experience
+      if (this.vendorExperience >= this.vendorMaxExperience) {
+        this.vendorExperience = 0
+        this.vendorMaxExperience += 10
+        this.vendorRank++
+      }
     }
   }
 }

@@ -4,8 +4,8 @@ import { useLocalStorage } from "@vueuse/core"
 export const gameCycleInfoStore = defineStore('gameCycleInfo', {
   state: () => {
     return {
-      gameActionPointsInitial: useLocalStorage('gameActionPointsInitial', 2),
-      gameActionPointsLeft: useLocalStorage('gameActionPointsLeft', 2),
+      gameActionPointsInitial: useLocalStorage('gameActionPointsInitial', 3),
+      gameActionPointsLeft: useLocalStorage('gameActionPointsLeft', 3),
       gameCurrentDay: useLocalStorage('gameCurrentDay', 1),
       gameCurrentTime: useLocalStorage('gameCurrentTime', 'MORNING'),
       gameIntroComplete: useLocalStorage('gameIntroComplete', false),
