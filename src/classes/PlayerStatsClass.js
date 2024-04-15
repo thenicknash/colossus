@@ -17,8 +17,9 @@ export default class PlayerStats {
   levelUp() {
     this.playerInfo.playerLevel++
     this.playerInfo.playerExperience = 0
+    
     // TODO: Make this a more complex formula
-    this.playerInfo.playerExperienceToNextLevel = 10
+    this.playerInfo.playerExperienceToNextLevel = 10 * this.playerInfo.playerLevel
     this.playerInfo.playerMaxHealthBase += 2
     this.playerInfo.playerHealthBase = this.playerInfo.playerMaxHealthBase
 

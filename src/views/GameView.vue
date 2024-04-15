@@ -208,8 +208,8 @@ audio.play()
             <div class="flex-initial">
               <button
                 class="p-2 border-4 bg-brown-300 border-brown-500 text-white hover:bg-brown-500 hover:border-brown-700 active:bg-brown-700 active:border-brown-900"
-                :class="{ 'bg-brown-700 border-brown-900 hover:bg-brown-700 hover:border-brown-900': playerLocation === 'village' }"
-                :disabled="playerLocation === 'village'"
+                :class="{ 'bg-brown-700 border-brown-900 hover:bg-brown-700 hover:border-brown-900': playerLocation === 'village' || playerLocation === 'shop'}"
+                :disabled="playerLocation === 'village' || playerLocation === 'shop'"
                 @click="playerLocation = 'village'"
               >
                 Village
