@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { playerInfoStore } from '../stores/playerInfo'
 
+import buildsData from '../data/builds.json'
+
 const INTRO_SCRIPT = ref([
   'You return to your village drenched from the sudden rain shower. The sky is dark and rain continues to pour.',
   'The village is quiet. Most of the inhabitants are taking cover in their homes to avoid a situation like yours.',
@@ -19,12 +21,15 @@ const currentLine = ref(INTRO_SCRIPT.value[currentLineIndex.value])
 
 const introScriptComplete = ref(false)
 const playerNameSubmitted = ref(false)
+const showBuildDescription = ref(false)
 
 const player = ref({
-  name: ''
+  name: '',
+  build: '',
 })
 
 const playerInfo = playerInfoStore()
+
 
 const showNextLine = () => {
   console.log(currentLineIndex.value, INTRO_SCRIPT.value.length - 1)
@@ -44,7 +49,7 @@ const submitPlayerName = () => {
   playerInfo.username = player.value.name
 
   playerNameSubmitted.value = true
-  console.log(player.value.name)
+  console.log('new player:', player.value)
 }
 </script>
 
@@ -85,6 +90,96 @@ const submitPlayerName = () => {
               placeholder="Enter your name"
               v-model="player.name"
             />
+
+            <h1 class="text-black text-4xl">
+              Which are you most like?
+            </h1>
+
+            <!-- Builds -->
+            <div class="grid grid-cols-3 gap-4 mt-10">
+              <div class="col-span-1">
+                <button
+                  class="p-4 hover:bg-slate-800 active:bg-red-800 focus:bg-red-700 text-white"
+                  :class="{ 'bg-red-700' : player.build === 'merchant', 'bg-slate-700' : player.build !== 'merchant'}"
+                  @click="player.build = 'merchant'; showBuildDescription = true; console.log(player.build)"
+                >
+                  Merchant
+                </button>
+              </div>
+              <div class="col-span-1">
+                <button
+                  class="p-4 hover:bg-slate-800 active:bg-red-800 focus:bg-red-700 text-white"
+                  :class="{ 'bg-red-700' : player.build === 'priest', 'bg-slate-700' : player.build !== 'priest'}"
+                  @click="player.build = 'priest'; showBuildDescription = true; console.log(player.build)"
+                >
+                  Priest
+                </button>
+              </div>
+              <div class="col-span-1">
+                <button
+                  class="p-4 hover:bg-slate-800 active:bg-red-800 focus:bg-red-700 text-white"
+                  :class="{ 'bg-red-700' : player.build === 'warrior', 'bg-slate-700' : player.build !== 'warrior'}"
+                  @click="player.build = 'warrior'; showBuildDescription = true; console.log(player.build)"
+                >
+                  Warrior
+                </button>
+              </div>
+            </div>
+
+            <!-- Build descriptions -->
+            <div
+              class="flex items-center justify-center min-h-[300px] mt-5 bg-slate-900/75 border-2 border-slate-800 text-2xl text-white"
+              v-if="showBuildDescription === true"
+            >
+              <div
+                v-if="player.build === 'merchant'"
+              >
+                <h1 class="mb-5">
+                  {{ buildsData.merchant.description }}
+                </h1>
+                <div
+                  v-for="(statBoost, index) in buildsData.merchant.statBoosts"
+                  :key="index"
+                >
+                  <h2>
+                    {{ index }}: +{{ statBoost }}
+                  </h2>
+                </div>
+              </div>
+              
+              <div
+                v-if="player.build === 'priest'"
+              >
+                <h1 class="mb-5">
+                  {{ buildsData.priest.description }}
+                </h1>
+                <div
+                  v-for="(statBoost, index) in buildsData.priest.statBoosts"
+                  :key="index"
+                >
+                  <h2>
+                    {{ index }}: +{{ statBoost }}
+                  </h2>
+                </div>
+              </div>
+
+              <div
+                v-if="player.build === 'warrior'"
+              >
+                <h1 class="mb-5">
+                  {{ buildsData.warrior.description }}
+                </h1>
+                <div
+                  v-for="(statBoost, index) in buildsData.warrior.statBoosts"
+                  :key="index"
+                >
+                  <h2>
+                    {{ index }}: +{{ statBoost }}
+                  </h2>
+                </div>
+              </div>
+
+            </div>
           </div>
 
           <button

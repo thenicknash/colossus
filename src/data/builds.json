@@ -1,0 +1,30 @@
+{
+    "merchant": {
+        "name": "Merchant",
+        "description": "A skilled trader who uses wealth to buy his way out of (and sometimes into) trouble.",
+        "level": "base",
+        "statBoosts": {
+            "intelligence": 5,
+            "charisma": 3
+        }
+    },
+    "priest": {
+        "name": "Priest",
+        "description": "An earnest holy and wise man who uses divine magic for innumerable possibilities.",
+        "level": "base",
+        "statBoosts": {
+            "magic": 3,
+            "luck": 5
+        }
+    },
+    "warrior": {
+        "name": "Warrior",
+        "description": "A veteran of combat who utilizes speed and strength to strike down enemies.",
+        "level": "base",
+        "statBoosts": {
+            "strength": 3,
+            "speed": 2,
+            "maxHealth": 10
+        }
+    }
+}
