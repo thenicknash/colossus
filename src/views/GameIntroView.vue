@@ -1,9 +1,10 @@
 <script setup>
 import { ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { playerInfoStore } from '../stores/playerInfo'
 
 import buildsData from '../data/builds.json'
+import PlayerBuild from '@/classes/PlayerBuildClass'
 
 const INTRO_SCRIPT = ref([
   'You return to your village drenched from the sudden rain shower. The sky is dark and rain continues to pour.',
@@ -16,11 +17,13 @@ const INTRO_SCRIPT = ref([
   'You close your eyes and drift off to sleep, determined to begin a new course. But it will have to wait until morning.',
 ])
 
+const router = useRouter()
+
 const currentLineIndex = ref(0)
 const currentLine = ref(INTRO_SCRIPT.value[currentLineIndex.value])
 
 const introScriptComplete = ref(false)
-const playerNameSubmitted = ref(false)
+const playerInfoSubmitted = ref(false)
 const showBuildDescription = ref(false)
 
 const player = ref({
@@ -30,6 +33,14 @@ const player = ref({
 
 const playerInfo = playerInfoStore()
 
+
+const beginGame = () => {
+  // Apply base build stats to player
+  const playerBuild = new PlayerBuild()
+  playerBuild.applyBaseBuild(player.value.build)
+
+  router.push('/game')
+}
 
 const showNextLine = () => {
   console.log(currentLineIndex.value, INTRO_SCRIPT.value.length - 1)
@@ -42,14 +53,16 @@ const showNextLine = () => {
   currentLine.value = INTRO_SCRIPT.value[currentLineIndex.value]
 }
 
-const submitPlayerName = () => {
+const submitPlayerInfo = () => {
   if (player.value.name === '') return
   if (player.value.name.length < 3) return
 
-  playerInfo.username = player.value.name
+  playerInfo.playerUsername = player.value.name
+  playerInfo.playerBuildBase = player.value.build
 
-  playerNameSubmitted.value = true
+  playerInfoSubmitted.value = true
   console.log('new player:', player.value)
+  console.log('playerInfo:', playerInfo)
 }
 </script>
 
@@ -78,7 +91,7 @@ const submitPlayerName = () => {
         </div>
         <div
           class="text-center"
-          v-else-if="introScriptComplete === true && playerNameSubmitted === false"
+          v-else-if="introScriptComplete === true && playerInfoSubmitted === false"
         >
           <div class="bg-white/50 p-5">
             <h1 class="text-black text-4xl">
@@ -184,7 +197,7 @@ const submitPlayerName = () => {
 
           <button
             class="bg-emerald-500 text-white text-3xl p-4 mx-auto mt-10 mb-3 hover:bg-emerald-600"
-            @click="submitPlayerName"
+            @click="submitPlayerInfo"
           >
             Continue
           </button>
@@ -199,12 +212,12 @@ const submitPlayerName = () => {
             </h1>
           </div>
 
-          <RouterLink
+          <button
             class="block max-w-40 bg-emerald-500 text-white text-3xl p-4 mx-auto mt-10 mb-3 hover:bg-emerald-600"
-            to="/game"
+            @click="beginGame"
           >
             Begin
-          </RouterLink>
+        </button>
         </div>
 
       </div>

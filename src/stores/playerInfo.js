@@ -5,6 +5,7 @@ export const playerInfoStore = defineStore('playerInfo', {
   state: () => {
     return {
       playerArmor: useLocalStorage('playerArmor', {}),
+      playerBuildBase: useLocalStorage('playerBuildBase', {}),
       playerCharismaBase: useLocalStorage('playerCharismaBase', 1),
       playerCharismaEquipBuff: useLocalStorage('playerCharismaEquipBuff', 0),
       playerCoin: useLocalStorage('playerCoin', 5),
@@ -14,7 +15,8 @@ export const playerInfoStore = defineStore('playerInfo', {
       playerDexterityEquipBuff: useLocalStorage('playerDexterityEquipBuff', 0),
       playerExperience: useLocalStorage('playerExperience', 0),
       playerExperienceToNextLevel: useLocalStorage('playerExperienceToNextLevel', 10),
-      playerHealth: useLocalStorage('playerHealth', 10),
+      playerHealthBase: useLocalStorage('playerHealthBase', 10),
+      playerHealthEquipBuff: useLocalStorage('playerHealthEquipBuff', 0),
       playerIntelligenceBase: useLocalStorage('playerIntelligenceBase', 1),
       playerIntelligenceEquipBuff: useLocalStorage('playerIntelligenceEquipBuff', 0),
       playerInventory: useLocalStorage('playerInventory', []),
@@ -23,7 +25,8 @@ export const playerInfoStore = defineStore('playerInfo', {
       playerLuckEquipBuff: useLocalStorage('playerLuckEquipBuff', 0),
       playerMagicBase: useLocalStorage('playerMagicBase', 1),
       playerMagicEquipBuff: useLocalStorage('playerMagicEquipBuff', 0),
-      playerMaxHealth: useLocalStorage('playerMaxHealth', 10),
+      playerMaxHealthBase: useLocalStorage('playerMaxHealthBase', 10),
+      playerMaxHealthEquipBuff: useLocalStorage('playerMaxHealthEquipBuff', 0),
       playerResolveBase: useLocalStorage('playerResolveBase', 1),
       playerResolveEquipBuff: useLocalStorage('playerResolveEquipBuff', 0),
       playerShield: useLocalStorage('playerShield', {}),
@@ -51,6 +54,10 @@ export const playerInfoStore = defineStore('playerInfo', {
       return state.playerDexterityBase + state.playerDexterityEquipBuff
     },
 
+    playerHealthTotal: (state) => {
+      return state.playerHealthBase + state.playerHealthEquipBuff
+    },
+
     playerIntelligenceTotal: (state) => {
       return state.playerIntelligenceBase + state.playerIntelligenceEquipBuff
     },
@@ -61,6 +68,10 @@ export const playerInfoStore = defineStore('playerInfo', {
 
     playerMagicTotal: (state) => {
       return state.playerMagicBase + state.playerMagicEquipBuff
+    },
+
+    playerMaxHealthTotal: (state) => {
+      return state.playerMaxHealthBase + state.playerMaxHealthEquipBuff
     },
 
     playerResolveTotal: (state) => {

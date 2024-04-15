@@ -31,7 +31,7 @@ const popUpMessage = ref('')
 
 
 const beginCombat = () => {
-  if (playerInfo.playerHealth <= 0) {
+  if (playerInfo.playerHealthTotal <= 0) {
     displayPopUp('You are too weak to fight! Rest and recover first.')
     return
   }
@@ -57,6 +57,7 @@ const beginGame = () => {
   showDialogue.value = false
   showLocations.value = true
   showActions.value = true
+  showIntroDialogue.value = false
 
   gameCycleInfo.gameIntroComplete = true
 }
@@ -170,7 +171,7 @@ audio.play()
               {{ playerInfo.playerUsername }}
             </button> | Lvl. {{ playerInfo.playerLevel }}
             <p class="text-md">
-              Health: {{ playerInfo.playerHealth }}/{{ playerInfo.playerMaxHealth }}
+              Health: {{ playerInfo.playerHealthTotal }} / {{ playerInfo.playerMaxHealthTotal }}
             </p>
             <p class="text-md">
               Experience: {{ playerInfo.playerExperience }}/{{ playerInfo.playerExperienceToNextLevel }}

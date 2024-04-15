@@ -59,10 +59,10 @@ const commenceCombatRound = () => {
 
   let currentTurn = turnOrder.value.shift()
 
-  if (Number(playerInfo.playerHealth) <= 0 || Number(enemy.health) <= 0) {
+  if (Number(playerInfo.playerHealthTotal) <= 0 || Number(enemy.health) <= 0) {
     console.log('BATTLE COMPLETE!')
 
-    if (playerInfo.playerHealth <= 0) {
+    if (playerInfo.playerHealthTotal <= 0) {
       console.log('Player is the loser!')
       eventLog.value.unshift(`${playerInfo.playerUsername} has been defeated!`)
       popUpMessage.value = 'DEFEATED!'
@@ -112,9 +112,13 @@ const commenceCombatRound = () => {
   } else {
     console.log('Enemy\'s turn!')
     eventLog.value.unshift(`${enemy.username} attacks!`)
-    playerInfo.playerHealth -= damageDealt
 
-    if (playerInfo.playerHealth <= 0) playerInfo.playerHealth = 0
+    // TODO: Figure out a less hacky way to apply damage to the player
+    playerInfo.playerHealthBase -= damageDealt
+
+    if (playerInfo.playerHealthBase <= 0) {
+      playerInfo.playerHealthBase = 0
+    }
 
     eventLog.value.unshift(`${enemy.username} deals ${damageDealt} damage!`)
   }
@@ -229,7 +233,7 @@ watch(() => props.displayModal, (value) => {
             {{ playerInfo.playerUsername }} | Lvl. {{ playerInfo.playerLevel }}
           </h1>
           <p class="text-md">
-            Health: {{ playerInfo.playerHealth }}/{{ playerInfo.playerMaxHealth }}
+            Health: {{ playerInfo.playerHealthTotal }}/{{ playerInfo.playerMaxHealthTotal }}
           </p>
           <p class="text-md">
             Experience: {{ playerInfo.playerExperience }}/{{ playerInfo.playerExperienceToNextLevel }}

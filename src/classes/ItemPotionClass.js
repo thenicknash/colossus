@@ -44,13 +44,13 @@ export default class ItemPotion {
     console.log(`You used the ${this.name}`)
 
     if (this.id === 1) {
-      playerInfo.playerHealth += this.effectValue
-      if (playerInfo.playerHealth > playerInfo.playerMaxHealth) {
-        playerInfo.playerHealth = playerInfo.playerMaxHealth
+      playerInfo.playerHealthBase += this.effectValue
+      if (playerInfo.playerHealthBase > playerInfo.playerMaxHealthTotal) {
+        playerInfo.playerHealthBase = playerInfo.playerMaxHealthTotal
       }
     }
     else if (this.id === 2) {
-      playerInfo.playerStrength += 1
+      playerInfo.playerStrengthBase += 1
     }
 
   }
