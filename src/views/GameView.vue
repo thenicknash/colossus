@@ -11,6 +11,7 @@ import PlayerInventoryComponent from '../components/PlayerInventoryComponent.vue
 import PlayerStats from '../classes/PlayerStatsClass'
 import PlayerStatsAndEquipmentComponent from '@/components/PlayerStatsAndEquipmentComponent.vue'
 import ShopItemsComponent from '../components/ShopItemsComponent.vue'
+import NpcTalkOptionComponent from '@/components/NpcTalkOptionComponent.vue'
 
 const gameCycleInfo = gameCycleInfoStore()
 const playerInfo = playerInfoStore()
@@ -25,6 +26,7 @@ const showCombatModal = ref(false)
 const showDialogue = ref(true)
 const showIntroDialogue = ref(!gameCycleInfo.gameIntroComplete)
 const showLocations = ref(false)
+const showNpcTalkOptions = ref(false)
 const showPlayerInventory = ref(false)
 const showPlayerStatsAndEquipment = ref(false)
 const showPopUp = ref(false)
@@ -66,6 +68,10 @@ const beginGame = () => {
   showIntroDialogue.value = false
 
   gameCycleInfo.gameIntroComplete = true
+}
+
+const closeNpcTalkOptions = () => {
+  showNpcTalkOptions.value = false
 }
 
 const closePlayerInventory = () => {
@@ -150,6 +156,16 @@ const rest = () => {
   }
 }
 
+const talkToNpc = (npc) => {
+  console.log('talking to npc:', npc)
+  showActions.value = false
+  showNpcTalkOptions.value = false
+  showLocations.value = false
+  
+  showDialogue.value = true
+
+}
+
 
 if (gameCycleInfo.gameIntroComplete) {
   beginGame()
@@ -169,6 +185,7 @@ audio.play()
       <div
         class="relative my-10 mx-10 p-2 min-h-screen-90 border-8 border-gray-500 bg-cover"
         :class="{
+          'bg-fantasy-inn': playerLocation === 'inn',
           'bg-fantasy-rain-night': playerLocation === 'village-rain-night',
           'bg-fantasy-shop': playerLocation === 'shop',
           'bg-fantasy-tavern': playerLocation === 'tavern',
@@ -290,12 +307,12 @@ audio.play()
         <!-- Main game dialogue text -->
         <div
           class="bg-slate-700 p-2 mx-2 mb-2 border-4 border-yellow-500 absolute inset-x-0 bottom-0"
-          v-show="showIntroDialogue === true"
+          v-if="showIntroDialogue === true"
         >
           <!-- text -->
           <div class="flex flex-row mb-5">
             <h1 class="text-white text-md">
-              The day has come. You awake with a renewed spirit ready to take hold of your fate. What will you do?
+              The day has come. You awake with a renewed spirit ready to take hold of your fate. What will you do?  Perhaps you could talk to your sister about the recent raid.
             </h1>
           </div>
           <!-- button -->
@@ -304,6 +321,28 @@ audio.play()
               <button
                 class="bg-emerald-500 text-md text-white p-2"
                 @click="beginGame"
+              >
+                Continue  
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bg-slate-700 p-2 mx-2 mb-2 border-4 border-yellow-500 absolute inset-x-0 bottom-0"
+          v-if="showDialogue === true"
+        >
+          <!-- text -->
+          <div class="flex flex-row mb-5">
+            <h1 class="text-white text-md">
+              You talk to the sister. She tells you about the recent raid and how the village is in need of help. She suggests you talk to the innkeeper, shopkeeper, and tavernkeeper to see if they have any work for you.
+            </h1>
+          </div>
+          <!-- button -->
+          <div class="flex flex-row justify-end">
+            <div class="">
+              <button
+                class="bg-emerald-500 text-md text-white p-2"
+                @click=""
               >
                 Continue  
               </button>
@@ -321,8 +360,14 @@ audio.play()
 
               <!-- Sub-locations -->
               <div
-                v-if="playerLocation === 'village' || playerLocation === 'shop' || playerLocation === 'tavern'"
+                v-if="playerLocation === 'village' || playerLocation === 'shop' || playerLocation === 'tavern' || playerLocation === 'inn'"
               >
+                <button
+                  class="world-fantasy-button block mb-2"
+                  @click="playerLocation = 'inn'"
+                >
+                  Inn
+                </button>
                 <button
                   class="world-fantasy-button block mb-2"
                   @click="playerLocation = 'shop'"
@@ -349,7 +394,20 @@ audio.play()
               <!-- Location actions -->
               <div
                 class="flex flex-row space-x-2 items-end"
-                v-if="playerLocation === 'village'"
+                v-if="playerLocation === 'inn'"
+              >
+                <div class="flex-initial">
+                  <button
+                    class="world-fantasy-button"
+                    @click="showNpcTalkOptions = true"
+                  >
+                    Talk
+                  </button>
+                </div>
+              </div>
+              <div
+                class="flex flex-row space-x-2 items-end"
+                v-else-if="playerLocation === 'village'"
               >
                 <div class="flex-initial">
                   <button
@@ -455,6 +513,16 @@ audio.play()
     <CombatComponent
       :displayModal="showCombatModal"
       @end-combat="endCombat"
+    />
+
+    <NpcTalkOptionComponent
+      :displayModal="showNpcTalkOptions"
+      :npcs="[
+        { name: 'camilla' },
+        { name: 'innkeeper' },
+      ]"
+      @talk-to-npc="talkToNpc"
+      @close-npc-talk-options="closeNpcTalkOptions"
     />
 
     <PlayerInventoryComponent

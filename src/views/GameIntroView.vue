@@ -208,7 +208,7 @@ const submitPlayerInfo = () => {
         >
           <div class="bg-white/50 p-5">
             <h1 class="text-black text-4xl">
-              {{ player.name }}, your journey begins come morning. Sleep well. Tonight marks the end of one story and the beginning of another.
+              {{ player.name }}, your journey begins come morning. Sleep well. Tonight marks the end of one chapter and the beginning of another.
             </h1>
           </div>
 

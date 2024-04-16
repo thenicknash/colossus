@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "npcId": 1,
+        "name": "After the Raid",
+        "npcLines": [
+            "I can't believe they did this to us. We were just trying to make a living.",
+            "I don't know what we're going to do now. We've lost everything."
+        ]
+    }
+]

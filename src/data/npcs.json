@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "guid": "6afc5c3a-2df8-4259-9a4b-51ff21b9110f",
+        "age": 14,
+        "dialogueBackgroundImagePath": "/images/fantasy-inn.jpg",
+        "imagePath": "/images/characters/camilla-dialogue-01.jpg",
+        "name": "camilla",
+        "playerRelation": "sister"
+    }
+]

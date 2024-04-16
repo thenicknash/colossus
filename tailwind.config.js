@@ -7,6 +7,7 @@ export default {
   theme: {
     backgroundImage: {
       'fantasy-02': "url('/images/fantasy-background-002.webp')",
+      'fantasy-inn': "url('/images/fantasy-inn.jpg')",
       'fantasy-rain-night': "url('/images/fantasy-rain-night.jpeg')",
       'fantasy-shop': "url('/images/fantasy-shop.jpeg')",
       'fantasy-tavern': "url('/images/fantasy-background-tavern.jpg')",
