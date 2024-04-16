@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue'
 import { playerInfoStore } from '../stores/playerInfo'
 
 const playerInfo = playerInfoStore()

@@ -3,6 +3,7 @@ import enemyData from '../data/enemies.json'
 export default class Enemy {
   constructor(username, level, health, strength, defense, speed) {
     this.defense = defense
+    this.experienceGranted = enemyData[username].experienceGranted
     this.health = health
     this.id = enemyData[username].id
     this.imagePath = enemyData[username].imagePath
@@ -11,8 +12,6 @@ export default class Enemy {
     this.speed = speed
     this.strength = strength
     this.username = username
-
-    this.setExperienceGranted()
   }
 
   attack() {
@@ -29,22 +28,5 @@ export default class Enemy {
 
   isAlive() {
     return this.health > 0
-  }
-
-  setExperienceGranted() {
-    switch (this.username.toLowerCase()) {
-      case 'goblin':
-        this.experienceGranted = 2
-        break
-      case 'wolf':
-        this.experienceGranted = 3
-        break
-      case 'rogue soldier':
-        this.experienceGranted = 5
-        break
-      default:
-        this.experienceGranted = 1
-        break
-    }
   }
 }

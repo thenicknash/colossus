@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 
 import ItemArmor from '../classes/ItemEquipmentClass';
 import ItemPotion from '../classes/ItemPotionClass'

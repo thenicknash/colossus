@@ -1,16 +1,19 @@
 {
     "GOBLIN": {
         "id": 1,
+        "experienceGranted": 2,
         "imagePath": "/images/enemy-goblin.png",
         "username": "GOBLIN"
     },
     "WOLF": {
         "id": 2,
+        "experienceGranted": 5,
         "imagePath": "/images/enemy-wolf.png",
         "username": "WOLF"
     },
     "ROGUE SOLDIER": {
         "id": 3,
+        "experienceGranted": 10,
         "imagePath": "/images/enemy-rogue-soldier.png",
         "username": "ROGUE SOLDIER"
     }

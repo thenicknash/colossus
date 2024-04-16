@@ -27,6 +27,7 @@ export const playerInfoStore = defineStore('playerInfo', {
       playerMagicEquipBuff: useLocalStorage('playerMagicEquipBuff', 0),
       playerMaxHealthBase: useLocalStorage('playerMaxHealthBase', 10),
       playerMaxHealthEquipBuff: useLocalStorage('playerMaxHealthEquipBuff', 0),
+      playerRent: useLocalStorage('playerRent', 10),
       playerResolveBase: useLocalStorage('playerResolveBase', 1),
       playerResolveEquipBuff: useLocalStorage('playerResolveEquipBuff', 0),
       playerShield: useLocalStorage('playerShield', {}),

@@ -6,16 +6,19 @@ import { gameCycleInfoStore } from '../stores/gameCycleInfo'
 
 import ActionPoints from '../classes/ActionPointsClass'
 import CombatComponent from '../components/CombatComponent.vue'
-import PlayerInventoryComponent from '../components/PlayerInventoryComponent.vue'
 import PopUpComponent from '../components/PopUpComponent.vue'
-import ShopItemsComponent from '../components/ShopItemsComponent.vue'
+import PlayerInventoryComponent from '../components/PlayerInventoryComponent.vue'
+import PlayerStats from '../classes/PlayerStatsClass'
 import PlayerStatsAndEquipmentComponent from '@/components/PlayerStatsAndEquipmentComponent.vue'
+import ShopItemsComponent from '../components/ShopItemsComponent.vue'
 
 const gameCycleInfo = gameCycleInfoStore()
 const playerInfo = playerInfoStore()
 
 const router = useRouter()
 
+const DAYS_RENT_DUE = 5
+const NIGHTLY_HEALTH_RESTORE = 2
 
 const showActions = ref(false)
 const showCombatModal = ref(false)
@@ -27,6 +30,8 @@ const showPlayerStatsAndEquipment = ref(false)
 const showPopUp = ref(false)
 const showShopItems = ref(false)
 const playerLocation = ref('village')
+// TODO: Incorporate sublocations
+// const playerSubLocation = ref('village')
 const popUpMessage = ref('')
 
 
@@ -39,12 +44,13 @@ const beginCombat = () => {
   const actionPoints = new ActionPoints()
   console.log('actionPoints:', actionPoints)
   console.log('actionPoints.getActionPointsLeft:', actionPoints.getActionPointsLeft)
-  console.log('actionPoints.isActionPointsZero:', actionPoints.isActionPointsZero)
 
   if (actionPoints.areEmpty()) {
     displayPopUp('You are too tired to fight! Rest and recover first.')
     return
   }
+
+  actionPoints.decrementActionPoints()
 
   showActions.value = false
   showDialogue.value = false
@@ -89,6 +95,10 @@ const endCombat = () => {
   showCombatModal.value = false
 }
 
+const navigateToGalesburgMap = () => {
+  router.push('/game/galesburg/map')
+}
+
 const navigateToJobs = () => {
   const actionPoints = new ActionPoints()
 
@@ -113,17 +123,24 @@ const navigateToTraining = () => {
 
 const rest = () => {
   const actionPoints = new ActionPoints()
+  const playerStats = new PlayerStats()
 
   console.log('actionsPoints.gameCycleInfo:', actionPoints.gameCycleInfo)
 
   if (gameCycleInfo.gameCurrentTime === 'EVENING') {
+    if (gameCycleInfo.gameCurrentDay % DAYS_RENT_DUE === 0) {
+      playerStats.removeCoins(playerInfo.playerRent)
+      displayPopUp('Your rent is due! You pay ' + playerInfo.playerRent + ' coins.')
+    } else {
+      displayPopUp('You rest for the night!')
+    }
+
+    playerStats.restoreHealth(NIGHTLY_HEALTH_RESTORE)
+
     gameCycleInfo.gameCurrentTime = 'MORNING'
     gameCycleInfo.gameCurrentDay += 1
 
     actionPoints.resetActionPoints()
-
-
-    displayPopUp('You rest for the night!')
   } else {
     gameCycleInfo.gameCurrentTime = 'EVENING'
 
@@ -152,10 +169,11 @@ audio.play()
       <div
         class="relative my-10 mx-10 p-2 min-h-screen-90 border-8 border-gray-500 bg-cover"
         :class="{
-          'bg-fantasy-village-dawn': playerLocation === 'village',
           'bg-fantasy-rain-night': playerLocation === 'village-rain-night',
-          'bg-fantasy-wilderness': playerLocation === 'wilderness',
           'bg-fantasy-shop': playerLocation === 'shop',
+          'bg-fantasy-tavern': playerLocation === 'tavern',
+          'bg-fantasy-village-dawn': playerLocation === 'village',
+          'bg-fantasy-wilderness': playerLocation === 'wilderness',
         }"
       > 
 
@@ -207,6 +225,14 @@ audio.play()
           >
             <div class="flex-initial">
               <button
+                class="p-2 border-4 world-fantasy-button"
+                @click="navigateToGalesburgMap"
+              >
+                City Map
+              </button>
+            </div>
+            <div class="flex-initial">
+              <button
                 class="p-2 border-4 bg-brown-300 border-brown-500 text-white hover:bg-brown-500 hover:border-brown-700 active:bg-brown-700 active:border-brown-900"
                 :class="{ 'bg-brown-700 border-brown-900 hover:bg-brown-700 hover:border-brown-900': playerLocation === 'village' || playerLocation === 'shop'}"
                 :disabled="playerLocation === 'village' || playerLocation === 'shop'"
@@ -223,14 +249,6 @@ audio.play()
                 @click="playerLocation = 'wilderness'"
               >
                 Wilderness
-              </button>
-            </div>
-            <div class="flex-initial">
-              <button
-                class="p-2 border-4 bg-brown-300 border-brown-500 text-white hover:bg-brown-500 hover:border-brown-700 active:bg-brown-700 active:border-brown-900"
-                @click="displayPopUp('You are not qualified for the Guild Hall!')"
-              >
-                Guild Hall
               </button>
             </div>
           </div>
@@ -303,35 +321,34 @@ audio.play()
 
               <!-- Sub-locations -->
               <div
-                class="flex space-x-2"
-                v-if="playerLocation === 'village'"
+                v-if="playerLocation === 'village' || playerLocation === 'shop' || playerLocation === 'tavern'"
               >
-                <div class="flex-initial">
-                  <button
-                    class="world-fantasy-button"
-                    @click="playerLocation = 'shop'"
-                  >
-                    Shop
-                  </button>
-                </div>
+                <button
+                  class="world-fantasy-button block mb-2"
+                  @click="playerLocation = 'shop'"
+                >
+                  Shop
+                </button>
+                <button
+                  class="world-fantasy-button block mb-2"
+                  @click="playerLocation = 'tavern'"
+                >
+                  Tavern
+                </button>
+                <button
+                  class="world-fantasy-button block"
+                  @click="playerLocation = 'village'"
+                >
+                  Village
+                </button>
               </div>
               <div
-                class="flex space-x-2"
-                v-else-if="playerLocation === 'shop'"
-              >
-                <div class="flex-initial">
-                  <button
-                    class="world-fantasy-button"
-                    @click="playerLocation = 'village'"
-                  >
-                    Village
-                  </button>
-                </div>
-              </div>
+                v-else-if="playerLocation === 'wilderness'"
+              ></div>
 
               <!-- Location actions -->
               <div
-                class="flex flex-row space-x-2"
+                class="flex flex-row space-x-2 items-end"
                 v-if="playerLocation === 'village'"
               >
                 <div class="flex-initial">
@@ -376,7 +393,7 @@ audio.play()
                 </div>
               </div>
               <div
-                class="flex flex-row space-x-2"
+                class="flex flex-row space-x-2 items-end"
                 v-else-if="playerLocation === 'shop'"
               >
                 <div class="flex-initial">
@@ -384,12 +401,12 @@ audio.play()
                     class="world-fantasy-button"
                     @click="showShopItems = true"
                   >
-                    Trade
+                    Buy
                   </button>
                 </div>
               </div>
               <div
-                class="flex flex-row space-x-2"
+                class="flex flex-row space-x-2 items-end"
                 v-else-if="playerLocation === 'wilderness'"
               >
                 <div class="flex-initial">
@@ -400,16 +417,34 @@ audio.play()
                     Combat
                   </button>
                 </div>
+                <div class="flex-initial">
+                  <button
+                    class="world-fantasy-button"
+                    v-if="gameCycleInfo.gameCurrentTime === 'MORNING'"
+                    @click="rest"
+                  >
+                    Wait
+                  </button>
+                  <button
+                    class="world-fantasy-button"
+                    v-else
+                    @click="rest"
+                  >
+                    Rest
+                  </button>
+                </div>
               </div>
 
               <!-- Game settings -->
-              <div class="flex-inital h-fit bg-slate-700/90 text-white p-2 border-slate-800 border-4">
-                <button
-                  class="text-md hover:underline"
-                  @click="displayPopUp('Settings are not available yet.')"
-                >
-                  Settings
-                </button>
+              <div class="flex flex-row items-end">
+                <div class="flex-initial">
+                  <button
+                    class="bg-slate-700/90 text-white p-2 border-slate-800 border-4 text-md hover:underline"
+                    @click="displayPopUp('Settings are not available yet.')"
+                  >
+                    Settings
+                  </button>
+                </div>
               </div>
             </div>
           </div>

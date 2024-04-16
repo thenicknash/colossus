@@ -9,8 +9,10 @@ export default {
       'fantasy-02': "url('/images/fantasy-background-002.webp')",
       'fantasy-rain-night': "url('/images/fantasy-rain-night.jpeg')",
       'fantasy-shop': "url('/images/fantasy-shop.jpeg')",
+      'fantasy-tavern': "url('/images/fantasy-background-tavern.jpg')",
       'fantasy-village-dawn': "url('/images/fantasy-village-dawn.jpeg')",
       'fantasy-wilderness': "url('/images/fantasy-wilderness.avif')",
+      'galesburg-map': "url('/images/galesburg-map.png')",
       'jobs-board': "url('/images/jobs-board-background.jpeg')",
     },
     extend: {

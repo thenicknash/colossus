@@ -50,7 +50,7 @@ export default class PlayerStats {
           this.playerInfo.playerIntelligenceBase += 1
           skillIncreased = 'Intelligence'
         } else {
-          this.playerInfo.playerCharismaBase
+          this.playerInfo.playerCharismaBase += 1
           skillIncreased = 'Charisma'
         }
       }
@@ -72,5 +72,12 @@ export default class PlayerStats {
 
   getCoins () {
     return this.playerInfo.playerCoin
+  }
+
+  restoreHealth (amount) {
+    this.playerInfo.playerHealthBase += amount
+    if (this.playerInfo.playerHealthBase + amount > this.playerInfo.playerMaxHealthBase) {
+      this.playerInfo.playerHealthBase = this.playerInfo.playerMaxHealthBase
+    }
   }
 }

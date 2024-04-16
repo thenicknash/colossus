@@ -20,6 +20,11 @@ const router = createRouter({
       component: () => import('../views/GameView.vue')
     },
     {
+      path: '/game/galesburg/map',
+      name: 'game-galesburg-map',
+      component: () => import('../views/GameGalesburgMapView.vue')
+    },
+    {
       path: '/game/intro',
       name: 'game-intro',
       component: () => import('../views/GameIntroView.vue')

@@ -7,10 +7,9 @@ export default {
 </script>
 
 <script setup>
-import { computed, defineProps, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { playerInfoStore } from '../stores/playerInfo'
 
-import ActionPoints from '../classes/ActionPointsClass'
 import Enemy from '../classes/EnemyClass'
 import PlayerStats from '../classes/PlayerStatsClass'
 import PopUpComponent from './PopUpComponent.vue'
@@ -85,9 +84,6 @@ const commenceCombatRound = () => {
     // Resetting combat values
     turnOrder.value = []
     showPopUp.value = true
-
-    const actionPoints = new ActionPoints()
-    actionPoints.decrementActionPoints()
 
     return
   }
@@ -240,6 +236,15 @@ watch(() => props.displayModal, (value) => {
           </p>
         </div>
 
+        <!-- Player image -->
+        <div class="flex-initial bg-brown-500 border-4 border-brown-700">
+          <img
+            src="/images/characters/mc-warrior.png"
+            alt="PLAYER IMAGE"
+            class="max-h-80 max-w-80"
+          />
+        </div>
+
         <!-- Enemy image -->
         <div class="flex-initial bg-brown-500 border-4 border-brown-700">
           <img
@@ -291,7 +296,7 @@ watch(() => props.displayModal, (value) => {
 
           <!-- Event log -->
           <div class="flex flex-row">
-            <div class="max-h-28 min-h-28 w-1/2 mx-auto my-5 p-2 bg-brown-500 border-4 border-brown-700 text-left overflow-scroll">
+            <div class=" max-h-64 min-h-64 w-1/2 mx-auto my-10 p-2 bg-brown-500 border-4 border-brown-700 text-left overflow-scroll">
               <p
                 v-for="(event, index) in eventLog"
                 :key="index"
